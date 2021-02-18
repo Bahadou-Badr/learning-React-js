@@ -52,7 +52,7 @@ export default Home;
 ## ♣ Props
 - Props :  is a way to pass data from parent components into child components.
 ##### EXAMPLE : pass the data from the Home Component (parent componenet) to BlogList Component (Child Component)
-Home component (parent)
+Home component (parent) 👇
 ```javascript
 import { useState } from "react";
 import BlogList from './BlogList';
@@ -73,7 +73,7 @@ const Home = () => {
  
 export default Home;
 ```
-BlogList Component (Child)
+BlogList Component (Child) 👇
 ```javascript
 const BlogList = (props) => {
     const blogs = props.blogs; //get the parent data
@@ -94,5 +94,27 @@ const BlogList = (props) => {
  
 export default BlogList;
 ```
+##### EXAMPLE 2 : using filter method | pass just the data that contain author = badr-bh
 
+```javascript
+import { useState } from "react";
+import BlogList from './BlogList';
 
+const Home = () => {
+    const [blogs, setBlogs] = useState([
+        {title: 'Web development', body: 'lorem ipsum ....', author: 'badr-bh', id: 1},
+        {title: 'Mobile development', body: 'lorem ipsum ....', author: 'prod-bad', id: 2},
+        {title: 'Software development', body: 'lorem ipsum ....', author: 'badr-bh', id: 3},
+        {title: 'Spring Boot', body: 'lorem ipsum ....', author: 'akira-bh', id: 4}
+    ]);
+  
+    return ( 
+        <div className="home">
+            <BlogList blogs={blogs} title="All blogs"/>
+            <BlogList blogs={ blogs.filter(blog => blog.author === 'badr-bh') } title="Badr Blogs"/> <!-- use the filter methodg -->
+        </div>
+     );
+}
+ 
+export default Home;
+```
