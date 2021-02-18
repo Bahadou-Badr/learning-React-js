@@ -49,4 +49,50 @@ const Home = () => {
 export default Home;
 ```
 *Don't forget the key attribute ,it allow to control each div*
+## ♣ Props
+- Props :  is a way to pass data from parent components into child components.
+##### EXAMPLE : pass the data from the Home Component (parent componenet) to BlogList Component (Child Component)
+Home component (parent)
+```javascript
+import { useState } from "react";
+import BlogList from './BlogList';
+
+const Home = () => {
+    const [blogs, setBlogs] = useState([
+        {title: 'Web development', body: 'lorem ipsum ....', author: 'badr-bh', id: 1},
+        {title: 'Mobile development', body: 'lorem ipsum ....', author: 'prod-bad', id: 2},
+        {title: 'Software development', body: 'lorem ipsum ....', author: 'akira-bh', id: 3}
+    ]); //the data that we want pass 
+  
+    return ( 
+        <div className="home">
+            <BlogList blogs={blogs} title="All blogs"/>  <!-- props -->
+        </div>
+     );
+}
+ 
+export default Home;
+```
+BlogList Component (Child)
+```javascript
+const BlogList = (props) => {
+    const blogs = props.blogs; //get the parent data
+    const title = props.title;
+
+    return ( 
+        <div className="blog-list">
+            <h2>{ title }</h2>
+            {blogs.map((blog) => (
+                <div className="blog-preview" key={ blog.id }>
+                    <h2>{ blog.title }</h2>
+                    <p>Written By : { blog.author }</p>
+                </div>
+            ))}
+        </div>
+     );
+}
+ 
+export default BlogList;
+```
+
 
