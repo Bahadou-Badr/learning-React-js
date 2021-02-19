@@ -110,8 +110,35 @@ const Home = () => {
   
     return ( 
         <div className="home">
-            <BlogList blogs={blogs} title="All blogs"/>
-            <BlogList blogs={ blogs.filter(blog => blog.author === 'badr-bh') } title="Badr Blogs"/> <!-- use the filter methodg -->
+            <BlogList blogs={blogs} title="All blogs" />
+            <BlogList blogs={ blogs.filter(blog => blog.author === 'badr-bh') } title="Badr Blogs" /> <!-- use the filter methodg -->
+        </div>
+     );
+}
+ 
+export default Home;
+```
+## ♣ useEffect Hook | useEffect Dependencies 
+- how we can control when the useEffect function fires - by using a dependency array.
+
+##### EXAMPLE : run the useEffect whene the name value change
+```javascript
+import { useState, useEffect } from "react"; //import useEffect
+
+const Home = () => {
+
+    const [name, setName] = useState('mario');
+
+    //use useEffect Hook
+    useEffect(() => {
+        console.log("run the UseEffect - the name is change")
+    }, [name]); //add dependencies | re-render the function whene the name value change
+  
+    return ( 
+        <div className="home">
+            <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />
+            <button onClick={() => setName('Ayix')}>change the name</button> 
+            <p>{ name }</p>
         </div>
      );
 }
