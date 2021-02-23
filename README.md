@@ -132,13 +132,40 @@ const Home = () => {
     //use useEffect Hook
     useEffect(() => {
         console.log("run the UseEffect - the name is change")
-    }, [name]); //add dependencies | re-render the function whene the name value change
+    }, []); //add dependencies | re-render the function whene the name value change
   
     return ( 
         <div className="home">
             <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />
             <button onClick={() => setName('Ayix')}>change the name</button> 
             <p>{ name }</p>
+        </div>
+     );
+}
+ 
+export default Home;
+```
+## ♣ Fetching Data with useEffect 
+
+- we'll see how to make a fetch request for data using the useEffect hook.
+##### EXAMPLE : Use fetch method inside the useEffect 
+```javascript
+import { useState, useEffect } from "react";
+import BlogList from './BlogList';
+
+const Home = () => {
+
+    const [blogs, setBlogs] = useState(null); 
+
+    useEffect(() => {
+        fetch('http://localhost:8000/blogs') //fetch method
+            .then(res => res.json())
+            .then(data => setBlogs(data));
+    }, []);
+  
+    return ( 
+        <div className="home">
+            {blogs && <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />} 
         </div>
      );
 }

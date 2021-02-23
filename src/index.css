@@ -9,7 +9,7 @@
   padding: 20px;
   display: flex;
   align-items: center;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
@@ -26,6 +26,7 @@
 }
 .navbar a:hover {
   color: #2108b1;
+  
 }
 .content {
   max-width: 600px;
@@ -39,9 +40,11 @@
   margin: 20px 0;
   border-bottom: 1px solid #fafafa;
 }
+
 .blog-preview:hover {
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
+
 .blog-preview h2 {
   font-size: 20px;
   color: #2108b1;
