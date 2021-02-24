@@ -175,6 +175,7 @@ export default Home;
 ## ♣ Making a Custom Hook
 - create a custom hook to be used in any component
 ##### EXAMPLE : create a custom hook to fetch datat
+useFetch.js
 ```javascript
 import { useEffect,useState } from "react";
 
@@ -206,4 +207,24 @@ const useFetch = (url) => { //Api url
 }
 
 export default useFetch;
+```
+Home.js
+```javascript
+import { useState, useEffect } from "react";
+import BlogList from './BlogList';
+import useFetch from "./useFetch.js";
+
+const Home = () => {
+    const {data:blogs, isLoading, error} = useFetch('http://localhost:8000/blogs'); //destructure the tree properties
+
+    return (
+        <div className="home">
+            { error && <div> {error} </div> }
+            { isLoading && <div>Loading</div> }
+            { blogs && <BlogList blogs={blogs} title="All blogs" /> }
+        </div>
+     );
+}
+ 
+export default Home;
 ```
