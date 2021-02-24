@@ -172,3 +172,38 @@ const Home = () => {
  
 export default Home;
 ```
+## ♣ Making a Custom Hook
+- create a custom hook to be used in any component
+##### EXAMPLE : create a custom hook to fetch datat
+```javascript
+import { useEffect,useState } from "react";
+
+const useFetch = (url) => { //Api url 
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch(url) //using the url parametre
+            .then(res => {
+                if(!res.ok){
+                    throw Error('Could not fetch data for that Resource');
+                }
+                return res.json();
+            })
+            .then(data => {
+                setData(data);
+                setIsLoading(false);
+                setError(null)
+            })
+            .catch(err => {
+                setIsLoading(false)
+                setError(err.message);
+            })
+    }, [url]);
+
+    return { data, isLoading, error }; //return the useStates that will be used in the Home Component
+}
+
+export default useFetch;
+```
