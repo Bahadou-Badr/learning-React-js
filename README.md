@@ -305,3 +305,49 @@ const Navbar = () => {
  
 export default Navbar;
 ```
+## ♣ the useEffect Clean-up 
+-  we'll look at how to create a cleanup function in our useEffect hook, to stop a fetch request when it's not needed.
+##### EXAMPLE : abort a fetch 
+
+```javascript
+import { useEffect,useState } from "react";
+
+const useFetch = (url) => {
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const abortCont = new AbortController(); // 1 : declare the abortController
+
+        setTimeout(() => {
+            fetch(url, { signal: abortCont.signal }) // 2 : add a second parameter (signal) to fetch 
+            .then(res => {
+                if(!res.ok){
+                    throw Error('Could not fetch data for that Resource');
+                }
+                return res.json();
+            })
+            .then(data => {
+                setData(data);
+                setIsLoading(false);
+                setError(null)
+            })
+            .catch(err => {
+                if (err.name === 'AbortError'){ // 3 : throw the AbortError
+                    console.log("fetch aborted");
+                } else {
+                    setIsLoading(false);
+                    setError(err.message);
+                }
+            })
+        }, 1000);
+        
+        return () => abortCont.abort(); // 4 : useEffect should return the abort function
+    }, [url]);
+
+    return { data, isLoading, error };
+}
+
+export default useFetch;
+```
