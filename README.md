@@ -230,6 +230,8 @@ export default Home;
 ```
 ## ♣ React Router
 -  see how to set it up so that we can have multiple 'pages' on our React websites.
+##### EXAMPLE : use the Router, Route and Switch 
+
 ```javascript
 import Navbar from "./Navbar";
 import Home from "./Home";
@@ -255,4 +257,51 @@ function App() {
 export default App;
 
 ```
+##### EXAMPLE : Exact Match | Router Links
+```javascript
+import Navbar from "./Navbar";
+import Home from "./Home";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Create from "./Create";
 
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />
+        <div className="content">
+          <Switch>
+            <Route exact path="/"> // exact match
+              <Home />
+            </Route>
+            <Route path="/create"> //another path (Create page)
+              <Create /> 
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+```
+NavBar Component 
+```javascript
+import { Link } from 'react-router-dom'; //import Link
+
+const Navbar = () => {
+    return ( 
+        <nav className="navbar">
+            <h1>Anime Blog</h1>
+            <div className="links">
+                <Link to="/">Home</Link> // use 'Link' in place of 'a' & 'to' in place of 'href' 
+                <Link to="/create" >New Blog</Link> 
+            </div>
+        </nav>
+     );
+}
+ 
+export default Navbar;
+```
