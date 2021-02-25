@@ -228,3 +228,31 @@ const Home = () => {
  
 export default Home;
 ```
+## ♣ React Router
+-  see how to set it up so that we can have multiple 'pages' on our React websites.
+```javascript
+import Navbar from "./Navbar";
+import Home from "./Home";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; //import Router, Route and Switch
+
+function App() {
+  return (
+    <Router> // Router Component
+      <div className="App">
+        <Navbar />
+        <div className="content">
+          <Switch> //Switch
+            <Route path="/"> // Define the path Route
+              <Home /> // Define the components that we want see inside this Route 
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+```
+
