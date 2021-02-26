@@ -351,3 +351,37 @@ const useFetch = (url) => {
 
 export default useFetch;
 ```
+## ♣ Route Parameters
+- we'll talk about route parameters & how we can use them to create a blog details page / component.
+##### EXAMPLE : pass the id 
+
+app.js
+```javascript
+<Switch>
+    <Route exact path="/">
+      <Home />
+    </Route>
+    <Route path="/create">
+      <Create /> 
+    </Route>
+    <Route path="/blogs/:id"> // add parameter (id)
+      <BlogDetails /> 
+    </Route>
+</Switch>
+```
+BlogList.js (add Link)
+```javascript
+return ( 
+        <div className="blog-list">
+            <h2>{ title }</h2>
+            {blogs.map((blog) => (
+                <div className="blog-preview" key={ blog.id }>
+                    <Link to={`/blogs/${blog.id}`}> //add the Link Route
+                        <h2>{ blog.title }</h2>
+                        <p>Written By : { blog.author }</p>
+                    </Link>
+                </div>
+            ))}
+        </div>
+     );
+```
