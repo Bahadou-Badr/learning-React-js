@@ -385,8 +385,8 @@ return (
         </div>
      );
 ```
-## ♣ Forms | Controlled inputs 🧿
-##### EXAMPLE : form for add a new blog | Controlled inputs 
+## ♣ Forms | Controlled inputs | Submit Event 
+##### EXAMPLE : form for add a new blog | Controlled inputs 🧿
 ```javascript
 import { useState } from "react";
 
