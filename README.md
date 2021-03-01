@@ -385,3 +385,138 @@ return (
         </div>
      );
 ```
+## ♣ Forms | Controlled inputs 🧿
+##### EXAMPLE : form for add a new blog | Controlled inputs 
+```javascript
+import { useState } from "react";
+
+const Create = () => {
+    const [title, setTitle] = useState(''); //title
+    const [body, setBody] = useState(''); //body
+    const [author, setAuthor] = useState('mario'); //author
+
+
+    return ( 
+        <div className="create">
+            <h2>Add a new Blog</h2>
+            <form>
+                <label>Blog Title: </label>
+                <input type="text"
+                  value={title} // 👈👈
+                  onChange={(e) => setTitle(e.target.value)} // 👈👈
+                  required/>
+                <label>Blog Body: </label>
+                <textarea
+                  value={body} // 👈👈
+                  onChange={(e) => setBody(e.target.value)} // 👈👈
+                  required></textarea>
+                <label>Blog Author: </label>
+                <select value={author} onChange={(e) => setAuthor(e.target.value)}>  // 👈👈
+                    <option value="mario">mario</option>
+                    <option value="yoshi">yoshi</option>
+                </select>
+                <button>Add Blog</button>
+            </form>
+        </div>
+     );
+}
+ 
+export default Create;
+```
+##### EXAMPLE : form for add a new blog | Submit events 🧿
+```javascript
+import { useState } from "react";
+
+const Create = () => {
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [author, setAuthor] = useState('mario');
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = (e) => { // submit event
+        e.preventDefault();
+        
+    }
+
+    return ( 
+        <div className="create">
+            <h2>Add a new Blog</h2>
+            <form onSubmit={handleSubmit}> // 👈👈
+                <label>Blog Title: </label>
+                <input type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)} 
+                  required/>
+                <label>Blog Body: </label>
+                <textarea
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)} 
+                  required></textarea>
+                <label>Blog Author: </label>
+                <select value={author} onChange={(e) => setAuthor(e.target.value)}>
+                    <option value="mario">mario</option>
+                    <option value="yoshi">yoshi</option>
+                </select>
+                { !loading && <button>Add Blog</button> }
+                { loading && <button disabled>Adding Blog</button> }
+            </form>
+        </div>
+     );
+}
+ 
+export default Create;
+```
+## ♣ Forms | Making a POST Request
+##### EXAMPLE  
+```javascript
+import { useState } from "react";
+
+const Create = () => {
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [author, setAuthor] = useState('mario');
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const blog = { title, body, author }; // 1 : set the title,body and author value in blog
+        setLoading(true);
+
+        fetch('http://localhost:8000/blogs', { // 2 : make a post request
+            method: 'POST',
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(blog) // set the blog
+        }).then(() => {
+            console.log('new blog added');
+            setLoading(false);
+        })
+    }
+
+    return ( 
+        <div className="create">
+            <h2>Add a new Blog</h2>
+            <form onSubmit={handleSubmit}>
+                <label>Blog Title: </label>
+                <input type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)} 
+                  required/>
+                <label>Blog Body: </label>
+                <textarea
+                  value={body}
+                  onChange={(e) => setBody(e.target.value)} 
+                  required></textarea>
+                <label>Blog Author: </label>
+                <select value={author} onChange={(e) => setAuthor(e.target.value)}>
+                    <option value="mario">mario</option>
+                    <option value="yoshi">yoshi</option>
+                </select>
+                { !loading && <button>Add Blog</button> }
+                { loading && <button disabled>Adding Blog</button> }
+            </form>
+        </div>
+     );
+}
+ 
+export default Create;
+```
